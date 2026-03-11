@@ -1,8 +1,8 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import AppShell from '../../components/layout/AppShell';
-import { useAuthStore, useNotifStore } from '../../lib/store';
+import AppShell from '@/components/layout/AppShell';
+import { useAuthStore, useNotifStore } from '@/lib/store';
 
 export default function SettingsPage() {
   const { user, shop, token, lang, setLang, logout, setAuth } = useAuthStore();
@@ -129,121 +129,9 @@ export default function SettingsPage() {
               <span className="pill" style={{ background:user?.nid_verified?'rgba(11,170,105,0.4)':'rgba(255,255,255,0.15)', color:'white' }}>
                 {user?.nid_verified ? '✓ NID যাচাই' : '⏳ NID বাকি'}
               </span>
-              <span className="pill" style={{ background:shop?.subscription_plan==='premium'?'#F0A500':'rgba(255,255,255,0.15)', color:'white' }}>
-                {shop?.subscription_plan==='premium' ? '⭐ Premium' : '🆓 Free'}
-              </span>
             </div>
           </div>
         </div>
-
-        {/* Tabs */}
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'6px', marginBottom:'16px' }}>
-          {[['profile','👤 প্রোফাইল'],['staff','👥 স্টাফ'],['notif','🔔 নোটিশ'],['security','🔐 নিরাপত্তা']].map(([k,l])=>(
-            <button key={k} onClick={()=>setTab(k)} style={{ padding:'8px 4px', border:`2px solid ${tab===k?'#0F4C81':'#DDE4EE'}`, borderRadius:'10px', fontSize:'11px', fontWeight:'600', cursor:'pointer', background:tab===k?'#EEF1FF':'white', color:tab===k?'#0F4C81':'#5E6E8A', fontFamily:'inherit' }}>{l}</button>
-          ))}
-        </div>
-
-        {/* PROFILE TAB */}
-        {tab==='profile' && (
-          <div style={{ display:'flex', flexDirection:'column', gap:'12px' }}>
-            {/* Verification */}
-            <div className="card">
-              <p style={{ margin:'0 0 14px', fontSize:'14px', fontWeight:'700', color:'#141D28' }}>🪪 যাচাইকরণ অবস্থা</p>
-              {[
-                { label:'NID যাচাই', ok: user?.nid_verified, href:'/profile' },
-                { label:'অনলাইন ব্যবসা', ok: shop?.online_verified, href:'/verify-business' },
-              ].map(v=>(
-                <div key={v.label} style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'12px 0', borderBottom:'1px solid #F0F4F8' }}>
-                  <p style={{ margin:0, fontSize:'13px', fontWeight:'600', color:'#141D28' }}>{v.label}</p>
-                  {v.ok
-                    ? <span className="pill" style={{ background:'#E6F9F2', color:'#0BAA69' }}>✓ যাচাই হয়েছে</span>
-                    : <a href={v.href} style={{ textDecoration:'none' }}><span className="pill" style={{ background:'#FFF3E0', color:'#F4A261', cursor:'pointer' }}>⏳ যাচাই করুন →</span></a>
-                  }
-                </div>
-              ))}
-            </div>
-
-            {/* Shop Info Edit */}
-            <div className="card">
-              <p style={{ margin:'0 0 14px', fontSize:'14px', fontWeight:'700', color:'#141D28' }}>🏪 দোকানের তথ্য</p>
-              <div className="input-wrap">
-                <label className="input-label">দোকানের নাম</label>
-                <input className="input-field" value={shopForm.shopName} onChange={e=>setShopForm({...shopForm, shopName:e.target.value})} placeholder="দোকানের নাম" />
-              </div>
-              <div className="input-wrap">
-                <label className="input-label">ঠিকানা</label>
-                <input className="input-field" value={shopForm.address} onChange={e=>setShopForm({...shopForm, address:e.target.value})} placeholder="দোকানের ঠিকানা" />
-              </div>
-              <div className="input-wrap">
-                <label className="input-label">Facebook পেজ লিংক</label>
-                <input className="input-field" value={shopForm.fbPageUrl} onChange={e=>setShopForm({...shopForm, fbPageUrl:e.target.value})} placeholder="https://facebook.com/yourpage" />
-              </div>
-              <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:8, marginTop:4 }}>
-                <Link href="/profile" style={{ textDecoration:'none' }}>
-                  <button className="btn btn-outline btn-full">👤 প্রোফাইল এডিট</button>
-                </Link>
-                <button onClick={saveShopSettings} disabled={shopSaving} className="btn btn-primary btn-full">
-                  {shopSaving ? '⏳...' : '💾 সংরক্ষণ'}
-                </button>
-              </div>
-            </div>
-
-            {/* Language */}
-            <div className="card">
-              <p style={{ margin:'0 0 12px', fontSize:'14px', fontWeight:'700', color:'#141D28' }}>🌐 ভাষা / Language</p>
-              <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'10px' }}>
-                {[['bn','🇧🇩 বাংলা'],['en','🇬🇧 English']].map(([k,l])=>(
-                  <button key={k} onClick={()=>setLang(k)} style={{ padding:'12px', border:`2px solid ${lang===k?'#0F4C81':'#DDE4EE'}`, borderRadius:'12px', fontSize:'14px', fontWeight:'600', cursor:'pointer', background:lang===k?'#EEF1FF':'white', color:lang===k?'#0F4C81':'#5E6E8A', fontFamily:'inherit' }}>{l}</button>
-                ))}
-              </div>
-            </div>
-
-            <button onClick={handleLogout} className="btn btn-danger btn-full">🚪 লগআউট</button>
-          </div>
-        )}
-
-        {/* STAFF TAB */}
-        {tab==='staff' && (
-          <div>
-            <button onClick={()=>setShowAddStaff(true)} className="btn btn-primary" style={{ width:'100%', marginBottom:'14px' }}>➕ নতুন কর্মচারী যোগ করুন</button>
-            {staffLoading ? (
-              <div style={{ display:'flex', flexDirection:'column', gap:'10px' }}>
-                {[1,2,3].map(i=><div key={i} className="card skeleton" style={{ height:'76px' }} />)}
-              </div>
-            ) : staff.length === 0 ? (
-              <div style={{ textAlign:'center', padding:'40px', color:'#8A9AB5' }}>
-                <span style={{ fontSize:'44px' }}>👥</span>
-                <p style={{ marginTop:'12px' }}>কোনো স্টাফ নেই। প্রথম কর্মচারী যোগ করুন।</p>
-              </div>
-            ) : (
-              <div style={{ display:'flex', flexDirection:'column', gap:'10px' }}>
-                {staff.map(s=>{
-                  const u = s.users || {};
-                  const isActive = u.is_active !== false;
-                  return (
-                    <div key={s.id} className="card" style={{ padding:'14px 16px', opacity:isActive?1:0.6 }}>
-                      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
-                        <div style={{ display:'flex', alignItems:'center', gap:'10px' }}>
-                          <div style={{ width:'42px', height:'42px', borderRadius:'13px', background:roleBg[s.role]||'#F0F4F8', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'20px' }}>
-                            {s.role==='manager'?'👔':s.role==='cashier'?'💳':s.role==='stock_manager'?'📦':'👁️'}
-                          </div>
-                          <div>
-                            <p style={{ margin:0, fontSize:'14px', fontWeight:'700', color:'#141D28' }}>{u.full_name || 'কর্মচারী'}</p>
-                            <p style={{ margin:0, fontSize:'11px', color:'#8A9AB5' }}>📱 {u.phone || '—'}</p>
-                          </div>
-                        </div>
-                        <div style={{ display:'flex', flexDirection:'column', alignItems:'flex-end', gap:'4px' }}>
-                          <span className="pill" style={{ background:roleBg[s.role]||'#F0F4F8', color:roleColor[s.role]||'#5E6E8A' }}>{roleLabel[s.role]||s.role}</span>
-                          <span style={{ fontSize:'11px', color:isActive?'#0BAA69':'#E63946', fontWeight:'600' }}>{isActive?'● সক্রিয়':'● বন্ধ'}</span>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        )}
 
         {/* NOTIFICATIONS TAB */}
         {tab==='notif' && (
