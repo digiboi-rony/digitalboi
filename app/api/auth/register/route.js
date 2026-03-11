@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { hashPassword, createToken } from '../../../lib/auth';
-import { supabaseAdmin } from '../../../lib/supabase';
-import { uploadImage } from '../../../lib/cloudinary';
+import { hashPassword, createToken } from '@/lib/auth';
+import { supabaseAdmin } from '@/lib/supabase';
+import { uploadImage } from '@/lib/cloudinary';
 
 export async function POST(request) {
   try {
