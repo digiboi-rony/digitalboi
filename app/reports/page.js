@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
-import AppShell from '../../components/layout/AppShell';
-import { useAuthStore } from '../../lib/store';
+import AppShell from '@/components/layout/AppShell';
+import { useAuthStore } from '@/lib/store';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, PieChart, Pie, Cell } from 'recharts';
 
 const MONTHS = ['জানু','ফেব্রু','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টে','অক্টো','নভে','ডিসে'];
@@ -83,12 +83,10 @@ export default function ReportsPage() {
             {[1,2,3,4].map(i=><div key={i} className="card skeleton" style={{ height:'80px' }} />)}
           </div>
         ) : (
-
           <>
             {/* OVERVIEW */}
             {tab==='overview' && (
               <div style={{ display:'flex', flexDirection:'column', gap:'12px' }}>
-                {/* Key Stats */}
                 <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'10px' }}>
                   {[
                     { l:'মোট বিক্রয়', v:'৳ '+(ov.totalSales||0).toLocaleString(), c:'#0BAA69', bg:'#E6F9F2', i:'📈' },
@@ -108,7 +106,6 @@ export default function ReportsPage() {
                   ))}
                 </div>
 
-                {/* Category Breakdown */}
                 {catData.length > 0 && (
                   <div className="card">
                     <p style={{ margin:'0 0 14px', fontSize:'14px', fontWeight:'700', color:'#141D28' }}>🏷️ ক্যাটাগরি অনুযায়ী বিক্রয়</p>
