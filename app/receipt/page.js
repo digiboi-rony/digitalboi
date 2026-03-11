@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useAuthStore } from '../../lib/store';
+import { useAuthStore } from '@/lib/store';
 
 function ReceiptContent() {
   const params = useSearchParams();
