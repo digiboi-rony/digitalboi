@@ -1,8 +1,10 @@
 'use client';
 import { useState, useEffect } from 'react';
-import AppShell from '../../components/layout/AppShell';
-import { useAuthStore, useNotifStore } from '../../lib/store';
-import { timeAgo } from '../../lib/utils';
+import AppShell from '@/components/layout/AppShell';
+import { useAuthStore, useNotifStore } from '@/lib/store';
+import { timeAgo } from '@/lib/utils';
+
+const PLATFORMS = ['Facebook Shop','Daraz','Shajgoj','Chaldal','Shohoz','Instagram','নিজস্ব ওয়েবসাইট','অন্যান্য'];
 
 export default function SuppliersPage() {
   const { token } = useAuthStore();
@@ -135,13 +137,11 @@ export default function SuppliersPage() {
                       <div>
                         <p style={{ margin: '0 0 3px', fontSize: '14px', fontWeight: '700', color: '#141D28' }}>{s.name}</p>
                         <p style={{ margin: '0 0 4px', fontSize: '11px', color: '#8A9AB5' }}>📱 {s.phone || '—'}{s.address ? ` · ${s.address}` : ''}</p>
-                        <span className="pill" style={{ background: s.due_amount > 0 ? '#FDECEA' : '#E6F9F2', color: s.due_amount > 0 ? '#E63946' : '#0BAA69' }}>
-                          {s.due_amount > 0 ? `⏳ ৳${s.due_amount.toLocaleString()} বাকি` : '✓ পরিশোধ'}
-                        </span>
                       </div>
                       <div style={{ textAlign: 'right' }}>
-                        <p style={{ margin: '0 0 4px', fontSize: '13px', fontWeight: '700', color: '#5E6E8A' }}>মোট ক্রয়</p>
-                        <p style={{ margin: 0, fontSize: '15px', fontWeight: '800', color: '#141D28' }}>৳ {(s.total_purchased || 0).toLocaleString()}</p>
+                        {s.due_amount > 0 && (
+                          <span className="pill" style={{ background: '#FDECEA', color: '#E63946' }}>বাকি ৳{s.due_amount?.toLocaleString()}</span>
+                        )}
                       </div>
                     </div>
                   </div>
