@@ -1,7 +1,7 @@
 'use client';
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '../../../lib/store';
+import { useAuthStore } from '@/lib/store';
 
 const STEPS = ['পরিচয়', 'মালিক', 'NID', 'দোকান', 'পাসওয়ার্ড'];
 
