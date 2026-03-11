@@ -1,0 +1,20 @@
+{
+  "name": "Digiboi — ব্যবসার ডিজিটাল সহকারী",
+  "short_name": "Digiboi",
+  "description": "আপনার ব্যবসার সম্পূর্ণ ডিজিটাল ম্যানেজমেন্ট সিস্টেম",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0F4C81",
+  "theme_color": "#0F4C81",
+  "lang": "bn",
+  "icons": [
+    { "src": "/icons/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any maskable" },
+    { "src": "/icons/icon-512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any maskable" }
+  ],
+  "categories": ["business", "productivity", "finance"],
+  "shortcuts": [
+    { "name": "নতুন বিক্রয়", "short_name": "বিক্রয়", "description": "POS খুলুন", "url": "/pos", "icons": [{"src": "/icons/icon-192.svg", "sizes": "192x192"}] },
+    { "name": "ড্যাশবোর্ড", "short_name": "হোম", "description": "ড্যাশবোর্ড দেখুন", "url": "/dashboard", "icons": [{"src": "/icons/icon-192.svg", "sizes": "192x192"}] }
+  ]
+}
