@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { supabaseAdmin } from '../../../lib/supabase';
-import { hashPassword } from '../../../lib/auth';
+import { supabaseAdmin } from '@/lib/supabase';
+import { hashPassword } from '@/lib/auth';
 
 // Step 1: Request OTP
 export async function POST(request) {
