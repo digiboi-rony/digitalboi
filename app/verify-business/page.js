@@ -1,8 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
-import AppShell from '../../components/layout/AppShell';
-import { useAuthStore, useNotifStore } from '../../lib/store';
-import { generateCode } from '../../lib/utils';
+import AppShell from '@/components/layout/AppShell';
+import { useAuthStore, useNotifStore } from '@/lib/store';
+import { generateCode } from '@/lib/utils';
 
 const PLATFORMS = ['Facebook Shop','Daraz','Shajgoj','Chaldal','Shohoz','Instagram','নিজস্ব ওয়েবসাইট','অন্যান্য'];
 
