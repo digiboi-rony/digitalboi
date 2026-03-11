@@ -1,9 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import AppShell from '../../../components/layout/AppShell';
-import { useAuthStore, useNotifStore } from '../../../lib/store';
-import { timeAgo } from '../../../lib/utils';
+import AppShell from '@/components/layout/AppShell';
+import { useAuthStore, useNotifStore } from '@/lib/store';
+import { timeAgo } from '@/lib/utils';
 
 export default function SaleDetailPage() {
   const { id } = useParams();
@@ -139,8 +139,9 @@ ${(sale.due_amount||0)>0?`<div style="display:flex;justify-content:space-between
     due:     { bg:'#FDECEA', c:'#E63946', l:'⏳ বাকি' },
     partial: { bg:'#FFF3E0', c:'#F4A261', l:'~ আংশিক' },
   };
-  const ss = statusStyle[sale.payment_status] || statusStyle.paid;
-  const METHOD_LABEL = { cash:'💵 নগদ', bkash:'📱 bKash', nagad:'🟠 Nagad', bank:'🏦 ব্যাংক', due:'📋 বাকি' };
+
+  const ss = statusStyle[sale.payment_status] || statusStyle.due;
+  const METHOD_LABEL = { cash:'💵 নগদ', bkash:'📱 bKash', nagad:'📱 Nagad', bank:'🏦 ব্যাংক', due:'📋 বাকি' };
 
   return (
     <AppShell title="বিক্রয়ের বিবরণ" activeTab="pos">
