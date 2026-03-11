@@ -1,8 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '../../lib/store';
-import AppShell from '../../components/layout/AppShell';
+import { useAuthStore } from '@/lib/store';
+import AppShell from '@/components/layout/AppShell';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 
 export default function DashboardPage() {
