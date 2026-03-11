@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
-import AppShell from '../../components/layout/AppShell';
-import { useAuthStore, useNotifStore } from '../../lib/store';
+import AppShell from '@/components/layout/AppShell';
+import { useAuthStore, useNotifStore } from '@/lib/store';
 
 export default function StockPage() {
   const { token } = useAuthStore();
