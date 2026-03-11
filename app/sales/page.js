@@ -1,9 +1,10 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import AppShell from '../../components/layout/AppShell';
-import { useAuthStore } from '../../lib/store';
-import { formatCurrency, timeAgo, STATUS_STYLE } from '../../lib/utils';
+import AppShell from '@/components/layout/AppShell';
+import { useAuthStore } from '@/lib/store';
+import { formatCurrency, timeAgo, STATUS_STYLE } from '@/lib/utils';
+
 export default function SalesHistoryPage() {
   const router = useRouter();
   const { token } = useAuthStore();
@@ -124,9 +125,9 @@ export default function SalesHistoryPage() {
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {filtered.map(s => {
-              const st = STATUS_STYLE[s.payment_status] || STATUS_STYLE.paid;
+              const st = STATUS_STYLE[s.payment_status] || STATUS_STYLE.due;
               return (
-                <div key={s.id} className="card" style={{ padding: '14px 16px' }} onClick={() => router.push(`/sales/${s.id}`)}>
+                <div key={s.id} className="card" style={{ padding: '14px 16px', cursor: 'pointer', borderLeft: `4px solid ${st.color}` }} onClick={() => setSelected(s)}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
                     <div>
                       <p style={{ margin: '0 0 2px', fontSize: 14, fontWeight: 700, color: '#141D28' }}>
